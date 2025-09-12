@@ -1,7 +1,7 @@
-import "./App.css";
+import { PythonRunner } from "./components/PythonRunner";
 
 function App() {
-  return <div className=""></div>;
+  return <PythonRunner />;
 }
 
 export default App;
