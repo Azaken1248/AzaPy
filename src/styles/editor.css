@@ -1,0 +1,20 @@
+.editor-container {
+    position: relative;
+    flex-grow: 1;
+    background-color: #121212;
+    border-radius: 0.5rem; 
+    border: 1px solid #4a5568; 
+    overflow-y: scroll; 
+}
+
+.editor {
+    min-height: 100%;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    caret-color: white;
+}
+.editor pre,
+.editor textarea {
+  white-space: pre !important;
+  word-wrap: normal !important;
+}
