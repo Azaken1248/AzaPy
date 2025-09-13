@@ -1,0 +1,26 @@
+.matplotlib-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 4px !important;
+  background: #f5f5f5 !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+}
+
+.matplotlib-toolbar-button {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  font-size: 14px !important;
+  padding: 6px !important;
+  border: none !important;
+  background: none !important;
+  cursor: pointer !important;
+  color: #8DA1B9 !important;
+  transition: color 0.2s, transform 0.1s !important;
+}
+
+.matplotlib-toolbar-button:hover {
+  color: oklch(80.9% 0.105 251.813) !important;
+  transform: scale(1.1) !important;
+}
