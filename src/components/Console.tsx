@@ -69,7 +69,10 @@ export const Console: React.FC<ConsoleProps> = ({
         className="flex flex-col flex-grow w-full bg-[#000000] text-[#8DA1B9] font-mono p-4 rounded-lg border border-gray-700 overflow-hidden"
       >
         <div ref={outputRef} className="flex-grow overflow-y-auto">
-          <pre className="whitespace-pre-wrap break-all bg-transparent">
+          <pre
+            id="lib-output"
+            className="whitespace-pre-wrap break-all bg-transparent"
+          >
             <code className="language-python bg-transparent">{output}</code>
           </pre>
         </div>
