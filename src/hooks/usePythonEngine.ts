@@ -99,10 +99,11 @@ const runPython = async (code: string): Promise<string> => {
 
     if (/\bmatplotlib\b/.test(code)) {
 
-      const parent = document.getElementById("output-console");
-      if (parent) {
+      const parent = document.getElementById("lib-output");
+        if (parent) {
         const container = document.createElement("div");
-        container.className = "mpl-container"; 
+        container.className = "mpl-container";
+        container.id = `matplotlib_${Date.now()}`;
         parent.appendChild(container);
 
         document.pyodideMplTarget = container;
