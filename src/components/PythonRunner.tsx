@@ -5,7 +5,7 @@ import { CodeEditor } from "./CodeEditor";
 import { Console } from "./Console";
 import { LoadingSpinner } from "./LoadingSpinner";
 
-const initialCode = `# Welcome to the Python Pad!
+const initialCode = `# Welcome to the AzaPy!
 # Type your Python code here and click "Run".
 
 import numpy as np
@@ -97,8 +97,8 @@ export const PythonRunner: React.FC = () => {
   const handleRun = async () => {
     setOutput((prev) => prev + `\n--- Running Script ---\n`);
 
-    const plotDivs = document.querySelectorAll('div[id^="matplotlib_"]');
-    plotDivs.forEach((div) => div.remove());
+    // const plotDivs = document.querySelectorAll('div[id^="matplotlib_"]');
+    // plotDivs.forEach((div) => div.remove());
 
     const result = await runPython(code);
     setOutput((prev) => prev + result + "\n--- Script Finished ---\n");
@@ -114,6 +114,9 @@ export const PythonRunner: React.FC = () => {
       case "cls":
       case "clear":
         setOutput("");
+        const plotDivs = document.querySelectorAll('div[id^="matplotlib_"]');
+        plotDivs.forEach((div) => div.remove());
+
         break;
 
       case "man":
