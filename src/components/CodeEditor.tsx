@@ -78,7 +78,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
               Prism.highlight(code, Prism.languages.python, "python")
             }
             padding={{ top: 16, right: 16, bottom: 16, left: 16 }}
-            className="editor"
+            className="editor mt-3.5"
             disabled={isBusy}
             textareaId="code-editor"
           />
