@@ -4,17 +4,13 @@ import { Header } from "./Header";
 import { CodeEditor } from "./CodeEditor";
 import { Console } from "./Console";
 import { LoadingSpinner } from "./LoadingSpinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileCode, faTerminal } from "@fortawesome/free-solid-svg-icons";
 
-const initialCode = `# Welcome to the AzaPy!
-# Type your Python code here and click "Run".
-
-import sys
+const initialCode = `import sys
 
 def main():
-    """Main function logic goes here."""
     print("Hello, world!")
-    # ... your code ...
-
 
 if __name__ == "__main__":
     main()
@@ -90,18 +86,40 @@ const commands: Command[] = [
   { command: "<python>", description: "Run any Python syntax." },
 ];
 
+type ActiveView = "editor" | "console";
+
 export const PythonRunner: React.FC = () => {
   const [code, setCode] = useState<string>(initialCode);
   const [output, setOutput] = useState<string>("");
   const { isLoading, isRunning, error, runPython } = usePythonEngine();
 
+  const [activeView, setActiveView] = useState<ActiveView>("editor");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const tabs: {
+    name: string;
+    key: ActiveView;
+    icon: any;
+    activeClass: string;
+  }[] = [
+    {
+      name: "Editor",
+      key: "editor",
+      icon: faFileCode,
+      activeClass: "border-indigo-500 text-indigo-400",
+    },
+    {
+      name: "Console",
+      key: "console",
+      icon: faTerminal,
+      activeClass: "border-yellow-500 text-yellow-400",
+    },
+  ];
 
   const handleRun = async () => {
     setOutput((prev) => prev + `\n--- Running Script ---\n`);
-
-    // const plotDivs = document.querySelectorAll('div[id^="matplotlib_"]');
-    // plotDivs.forEach((div) => div.remove());
+    setActiveView("console");
 
     const result = await runPython(code);
     setOutput((prev) => prev + result + "\n--- Script Finished ---\n");
@@ -119,7 +137,6 @@ export const PythonRunner: React.FC = () => {
         setOutput("");
         const plotDivs = document.querySelectorAll('div[id^="matplotlib_"]');
         plotDivs.forEach((div) => div.remove());
-
         break;
 
       case "man":
@@ -205,16 +222,56 @@ export const PythonRunner: React.FC = () => {
 
       <Header />
 
-      <main className="flex-grow flex flex-col md:flex-row p-4 gap-4 overflow-hidden">
-        <CodeEditor
-          onRun={handleRun}
-          onSave={handleSave}
-          code={code}
-          setCode={setCode}
-          isBusy={isLoading || isRunning}
-          onUploadClick={handleUploadClick}
-        />
-        <Console output={output} onCommandSubmit={handleCommandSubmit} />
+      <main className="flex-grow flex flex-col overflow-hidden">
+        <div className="mb-2 border-b border-zinc-700 md:hidden">
+          <nav className="-mb-px flex space-x-6 px-4" aria-label="Tabs">
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveView(tab.key)}
+                className={`${
+                  activeView === tab.key
+                    ? tab.activeClass
+                    : "border-transparent text-gray-400 hover:border-gray-500 hover:text-gray-300"
+                } flex items-center whitespace-nowrap border-b-2 py-3 px-1 text-sm font-medium`}
+              >
+                <FontAwesomeIcon icon={tab.icon} className="mr-2" />
+                {tab.name}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <div className="flex-grow flex flex-col md:flex-row md:gap-4 overflow-hidden p-4">
+          <div
+            className={`
+              ${activeView === "editor" ? "flex" : "hidden"}
+              flex-col flex-grow
+              md:flex md:flex-1
+              overflow-hidden
+            `}
+          >
+            <CodeEditor
+              onRun={handleRun}
+              onSave={handleSave}
+              code={code}
+              setCode={setCode}
+              isBusy={isLoading || isRunning}
+              onUploadClick={handleUploadClick}
+            />
+          </div>
+
+          <div
+            className={`
+              ${activeView === "console" ? "flex" : "hidden"}
+              flex-col flex-grow
+              md:flex md:flex-1
+              overflow-hidden
+            `}
+          >
+            <Console output={output} onCommandSubmit={handleCommandSubmit} />
+          </div>
+        </div>
       </main>
     </div>
   );
