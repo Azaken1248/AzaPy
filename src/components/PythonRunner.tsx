@@ -10,6 +10,7 @@ import { faFileCode, faTerminal } from "@fortawesome/free-solid-svg-icons";
 const initialCode = `# Welcome to AzaPy 
 # A simplistic online compiler for people to learn python
 # Have fun learning <3
+
 import sys
 
 def main():
