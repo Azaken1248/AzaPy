@@ -102,7 +102,7 @@ const runPython = async (code: string): Promise<string> => {
       const parent = document.getElementById("lib-output");
         if (parent) {
         const container = document.createElement("div");
-        container.className = "mpl-container";
+        container.className = "mpl-container  w-full max-w-3xl mx-auto aspect-video my-2";
         container.id = `matplotlib_${Date.now()}`;
         parent.appendChild(container);
 
