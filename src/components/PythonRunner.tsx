@@ -8,13 +8,16 @@ import { LoadingSpinner } from "./LoadingSpinner";
 const initialCode = `# Welcome to the AzaPy!
 # Type your Python code here and click "Run".
 
-import numpy as np
+import sys
 
-a = np.array([1, 2, 3])
-print(f"Here is a numpy array: {a}")
+def main():
+    """Main function logic goes here."""
+    print("Hello, world!")
+    # ... your code ...
 
-# The result of the last expression is also displayed
-[x * 2 for x in range(10)]
+
+if __name__ == "__main__":
+    main()
 `;
 
 type Command = {
