@@ -1,69 +1,77 @@
-# React + TypeScript + Vite
+# AzaPy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**AzaPy** is a simplistic online Python compiler and interactive terminal designed to provide an easy-to-use environment for learning and executing Python code directly in the browser. It features a split view with a full code editor and an interactive console, powered by **Pyodide**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Python in the Browser**: Execute Python code, including popular libraries like Matplotlib, directly in your web browser using Pyodide.  
+- **Interactive Console**: A terminal interface that functions as a Python REPL, supports command history, and allows console output to be exported as PDF, HTML, or Markdown.  
+- **Syntax Highlighting**: Both the editor and console output feature Python syntax highlighting using PrismJS to improve readability.  
+- **Code Editor**: An easy-to-use code editor provided by `react-simple-code-editor`.  
+- **File Handling**: Supports saving code editor content as a `.py` file and uploading local `.py` or `.txt` files into the editor.  
+- **Autocomplete**: Provides ghost-text suggestions for Python keywords and functions while typing in both the editor and the console.  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Frontend**: React, TypeScript, and Vite  
+- **Styling**: TailwindCSS  
+- **Python Engine**: Pyodide  
+- **Editor**: react-simple-code-editor  
+- **Syntax Highlighting**: PrismJS  
+- **Icons**: Font Awesome  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Getting Started
+
+### Prerequisites
+Make sure you have **Node.js** installed on your machine.
+
+### Installation
+
+```bash
+git clone https://github.com/azaken1248/azapy.git
+cd azapy
+npm install   # or pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Running the Project
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+This will run the app in development mode.  
+Open [http://localhost:5173](http://localhost:5173) (or the port specified in your terminal) to view it in your browser.
+
+### Building the Project
+
+```bash
+npm run build
+```
+
+This command builds the app for production to the `dist` folder.
+
+---
+
+## Contributing
+
+Contributions are what make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.  
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag **enhancement**.
+
+1. Fork the Project  
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)  
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)  
+4. Push to the Branch (`git push origin feature/AmazingFeature`)  
+5. Open a Pull Request  
+
+---
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
