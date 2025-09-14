@@ -23,3 +23,8 @@
   white-space: pre-wrap !important;
   word-break: break-word;
 }
+
+.ghost-text {
+  opacity: 0.5; 
+  pointer-events: none; 
+}

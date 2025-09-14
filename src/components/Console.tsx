@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Prism from "prismjs";
 import Editor from "react-simple-code-editor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { usePythonAutocomplete } from "../hooks/usePythonAutocomplete";
 import {
   faFilePdf,
   faFileCode,
@@ -23,6 +24,8 @@ export const Console: React.FC<ConsoleProps> = ({
   const [command, setCommand] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+
+  const { suggestion, getSuggestion } = usePythonAutocomplete();
 
   useEffect(() => {
     if (outputRef.current) {
@@ -60,6 +63,40 @@ export const Console: React.FC<ConsoleProps> = ({
         setCommand("");
       }
     }
+  };
+
+  const handleCommandChange = (newCommand: string) => {
+    setCommand(newCommand);
+    getSuggestion(newCommand);
+  };
+
+  const words = command.split(/[\s\n\(\)\{\}\[\]\.:,;=\+\-\*\/]+/);
+  const lastWord = words[words.length - 1] || "";
+  let ghostTextRemainder = "";
+  if (
+    suggestion &&
+    lastWord &&
+    suggestion.toLowerCase().startsWith(lastWord.toLowerCase()) &&
+    suggestion.toLowerCase() !== lastWord.toLowerCase()
+  ) {
+    ghostTextRemainder = suggestion.substring(lastWord.length);
+  }
+
+  // 4. CREATE THIS: Custom highlighter to render ghost text
+  const highlightWithSuggestion = (code: string) => {
+    const highlightedCode = Prism.highlight(
+      code,
+      Prism.languages.python,
+      "python"
+    );
+
+    // Escape the remainder text
+    const escapedGhostText = ghostTextRemainder
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    return `${highlightedCode}<span class="ghost-text">${escapedGhostText}</span>`;
   };
 
   const downloadFile = (
@@ -296,11 +333,9 @@ export const Console: React.FC<ConsoleProps> = ({
           <span className="text-gray-400 mr-2">{">"}</span>
           <Editor
             value={command}
-            onValueChange={setCommand}
+            onValueChange={handleCommandChange}
             placeholder="Enter command here...."
-            highlight={(code) =>
-              Prism.highlight(code, Prism.languages.python, "python")
-            }
+            highlight={highlightWithSuggestion}
             onKeyDown={handleKeyDown}
             padding={4}
             className="flex-1 bg-transparent text-[#8DA1B9] font-mono [&_textarea]:outline-none [&_textarea]:ring-0 [&_textarea]:border-0 caret-[#8DA1B9]"
